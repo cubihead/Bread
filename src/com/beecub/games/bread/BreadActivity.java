@@ -1,10 +1,12 @@
 package com.beecub.games.bread;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -27,15 +29,20 @@ public class BreadActivity extends Activity {
 	public static int mNeed = 0;
 	public static long mLastNeed = new Date().getTime();
 	public static float mMoney = 0.0f;
+	public static ArrayList<Integer> mItems = new ArrayList<Integer>();
 	
 	public static Bread mBread;
 	public static Balloon mBalloon;
+	
+	public static Typeface mTypeface;
 	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
+        //mTypeface = Typeface.createFromAsset(getAssets(), "fonts/Geo-Regular.ttf");
         
         initData();
         setContentView(R.layout.main);
@@ -53,6 +60,7 @@ public class BreadActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.stop:
 //                android.os.Process.killProcess(android.os.Process.myPid());
+                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -86,7 +94,15 @@ public class BreadActivity extends Activity {
     public static void fulfillNeed() {
         mNeed = 0;
         if(mAge >= 20) {
-            mAge -= 5;
+            if(mAge - 5 < 20)
+                mAge = 20;
+            else
+                mAge -= 5;
+        } else if(mAge >= 80) {
+            if(mAge - 2 < 80)
+                mAge = 80;
+            else
+                mAge -= 2;
         } else {
             mAge += 2;
         }
@@ -106,6 +122,23 @@ public class BreadActivity extends Activity {
         mAge = mSettings.getInt("mAge", 0);
         mLastNeed = mSettings.getLong("mLastNeed", new Date().getTime());
         mMoney = mSettings.getFloat("mMoney", 0);
+        
+        String items = mSettings.getString("mItems", "");
+        
+        String[] sItems = items.split(";");
+        for(int i = 0; i < sItems.length; i++) {
+            if(!sItems[i].equalsIgnoreCase("")) {
+                mItems.add(Integer.valueOf(sItems[i]));
+            }
+        }
+    }
+    
+    public static void saveItems() {
+        String items = "";
+        for(int i = 0; i <= mItems.size(); i++) {
+            items += mItems.get(i) + ";";
+        }
+        saveSingleData("mItems", items);
     }
     
     public static void saveSingleData(String name, String data) {     

@@ -58,10 +58,10 @@ public class Bread {
     }
     
     public void updateBounds() {
-        mLeft = MainGamePanel.mCanvasWidth / 2 - mDrawable.getIntrinsicWidth() / 2;
-        mRight = MainGamePanel.mCanvasWidth / 2 + mDrawable.getIntrinsicHeight() / 2;
-        mTop = (int) (MainGamePanel.mCanvasHeight - MainGamePanel.mCanvasHeight / 2.5 - mDrawable.getIntrinsicHeight() / 2);
-        mBottom = (int) (MainGamePanel.mCanvasHeight - MainGamePanel.mCanvasHeight / 2.5 + mDrawable.getIntrinsicHeight() / 2);
+        mLeft = (int) (MainGamePanel.mCanvasWidth / 2 - mDrawable.getIntrinsicWidth() / 2.5);
+        mRight = (int) (MainGamePanel.mCanvasWidth / 2 + mDrawable.getIntrinsicHeight() / 2.5);
+        mTop = (int) (MainGamePanel.mCanvasHeight - MainGamePanel.mCanvasHeight / 2.5 - mDrawable.getIntrinsicHeight() / 2.5);
+        mBottom = (int) (MainGamePanel.mCanvasHeight - MainGamePanel.mCanvasHeight / 2.5 + mDrawable.getIntrinsicHeight() / 2.5);
     }
     
     private void wink() {
@@ -77,13 +77,13 @@ public class Bread {
             switch (mWinkType) {
                 case 1:
                     mEyes = mResources.getDrawable(R.drawable.bread_face_eyes_wink_1);
-                    mWinkType = 2;
                     break;
                 case 2:
                     mEyes = mResources.getDrawable(R.drawable.bread_face_eyes_normal);
                     mWink = false;
                     break;
             }
+            mWinkType++;
         }
         
     }

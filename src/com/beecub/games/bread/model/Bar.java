@@ -9,9 +9,6 @@ import com.beecub.games.bread.R;
 
 public class Bar
 {
-    public static final int MODE_CRITICAL = 2;
-    public static final int MODE_NORMAL = 0;
-    public static final int MODE_WARNING = 1;
     private Drawable mBackgroundImage;
     private Drawable mYellowBar;
     private Drawable mRedBar;

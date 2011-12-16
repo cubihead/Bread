@@ -6,6 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -29,7 +32,9 @@ public class MainGamePanel extends SurfaceView implements
     
     private static Bitmap mBackground;
     private static Bitmap mBackgroundClouds;
-    private static float mBackgroundCloudsOffset = 0.0f;    
+    private static float mBackgroundCloudsOffset = 0.0f;
+    
+    private static Drawable mMoney;
     
     private static Bar mAgeBar;
     
@@ -48,6 +53,8 @@ public class MainGamePanel extends SurfaceView implements
                 R.drawable.background_001_clouds);
         
         BreadActivity.mBalloon = new Balloon(mResources, 1, -1000, -1000);
+        
+        mMoney = mResources.getDrawable(R.drawable.icon_face_plain);
 
         setFocusable(true);
     }
@@ -124,7 +131,15 @@ public class MainGamePanel extends SurfaceView implements
     }
     
     private void drawMoney(Canvas canvas) {
-        
+        mMoney.setBounds(15, 55, 15 + 20, 55 + 20);
+        mMoney.draw(canvas);
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Style.FILL);
+        paint.setTextSize(20);
+        //paint.setTypeface(PlanetActivity.mTypeface);
+        paint.setAntiAlias(true);
+        canvas.drawText(mResources.getString(R.string.money) + ": " + (int)BreadActivity.mMoney, 40, 75, paint);
     }
     
     private void drawBackground(Canvas canvas) {
