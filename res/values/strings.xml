@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bread</string>
+    <string name="app_name">Mr Bread</string>
     <string name="stop">Quit</string>
+    <string name="money">Coins</string>
 </resources>
